@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Ingredients Chef/AddIngredientTableViewController.swift"
+            timestampString = "526009528.216738"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "AddIngredientTVCDelegate"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Ingredients_Chef.AddIngredientTableViewController.textField.getter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITextField&gt;"
+                  moduleName = "Ingredients Chef"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinafiksson/Documents/IOS_Development/Udacity/Ingredients%20Chef/Ingredients%20Chef/AddIngredientTableViewController.swift"
+                  timestampString = "526008890.342324"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Ingredients_Chef.AddIngredientTableViewController.textField.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITextField&gt;"
+                  moduleName = "Ingredients Chef"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinafiksson/Documents/IOS_Development/Udacity/Ingredients%20Chef/Ingredients%20Chef/AddIngredientTableViewController.swift"
+                  timestampString = "526008890.344213"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "42">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Ingredients_Chef.AddIngredientTableViewController.init (style : __C.UITableViewStyle) -&gt; Ingredients_Chef.AddIngredientTableViewController"
+                  moduleName = "Ingredients Chef"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinafiksson/Documents/IOS_Development/Udacity/Ingredients%20Chef/Ingredients%20Chef/AddIngredientTableViewController.swift"
+                  timestampString = "526008890.345825"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Ingredients_Chef.AddIngredientTableViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; Ingredients_Chef.AddIngredientTableViewController"
+                  moduleName = "Ingredients Chef"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinafiksson/Documents/IOS_Development/Udacity/Ingredients%20Chef/Ingredients%20Chef/AddIngredientTableViewController.swift"
+                  timestampString = "526008890.347186"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "70">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Ingredients_Chef.AddIngredientTableViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;Ingredients_Chef.AddIngredientTableViewController&gt;"
+                  moduleName = "Ingredients Chef"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/polinafiksson/Documents/IOS_Development/Udacity/Ingredients%20Chef/Ingredients%20Chef/AddIngredientTableViewController.swift"
+                  timestampString = "526008890.3485"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
