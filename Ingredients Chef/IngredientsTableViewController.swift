@@ -69,6 +69,7 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath)
         
         let item = ingredients[indexPath.row]
@@ -136,6 +137,7 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
             }
             //convert them into a string
             ingredientList = checkedIngredients.joined(separator: ",")
+            controller.chosenIngredients = ingredientList
             
             
         }

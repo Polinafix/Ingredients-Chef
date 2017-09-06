@@ -26,6 +26,9 @@ struct Constants {
         static let LimitLicense = "limitLicense"
         static let Number = "number"
         static let Ranking = "ranking"
+        static let ID = "id"
+        static let IncludeNutrition = "includeNutrition"
+        
     }
     
     // MARK: TMDB Parameter Values

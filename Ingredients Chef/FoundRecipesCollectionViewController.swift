@@ -14,31 +14,33 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
 
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     var recipesArray:[Recipe] = [Recipe]()
-    var chosenIngredients:String = "" 
+    var chosenIngredients:String = ""
+    var recipeId:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadRecipes()
         
-        collectionView!.contentInset = UIEdgeInsets(top: 15, left: 40, bottom: 15, right: 40)
+        //collectionView!.contentInset = UIEdgeInsets(top: 15, left: 40, bottom: 15, right: 40)
         
         
 
-        /*let space:CGFloat = 8.0
+        let space:CGFloat = 3.0
         let dimension = (view.frame.size.width - (2 * space)) / 2.0
         
         flowLayout.minimumInteritemSpacing = space
         flowLayout.minimumLineSpacing = space
         
-        flowLayout.itemSize = CGSize(width: dimension, height: dimension)*/
+        flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
 
-    //downloading images from Flickr
+    //downloading recipes
     func loadRecipes(){
         
-        FoodAPIRequest.sharedInstance.findRecipes { (results, error) in
-            
+        //FoodAPIRequest.sharedInstance.findRecipes { (results, error) in
+        FoodAPIRequest.sharedInstance.findRecipes(chosenIngredients) { (results, error) in
+        
             if error ==  nil{
                 performUIUpdatesOnMain {
                     if (results?.count)! > 0{
@@ -84,6 +86,7 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
             cell?.imageView.image = UIImage(data: recipe.data!)
         }else{
             FoodAPIRequest.sharedInstance.fromUrlToData(recipe.imageURL, { (returnedData, error) in
+            
                 
                 if let recipeData = returnedData{
                     performUIUpdatesOnMain {
@@ -104,8 +107,40 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
     
         return cell!
     }
+    
+   /* override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let recipe = recipesArray[indexPath.row]
+        recipeId = recipe.id
+        
+       // print(recipeId)
+        
+        
+        //performSegue(withIdentifier: "showDetail", sender: recipeId!)
+        
+    }*/
 
-    // MARK: UICollectionViewDelegate
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail"{
+            let navigationController = segue.destination as! UINavigationController
+            let controller = navigationController.topViewController as! RecipeDetailsViewController
+            controller.recipeId = (sender as? Int)!
+        }
+    }*/
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showDetail") {
+            let indexPaths: [Any]? = collectionView?.indexPathsForSelectedItems
+            let navigationController = segue.destination as! UINavigationController
+            let controller = navigationController.topViewController as! RecipeDetailsViewController
+            //let destViewController: RecipeViewController? = segue.destination
+            let indexPath = indexPaths?[0] as? IndexPath ?? IndexPath()
+            let recipe = recipesArray[indexPath.row]
+            let chosenRecipeId = recipe.id
+            controller.recipeId = chosenRecipeId!
+            collectionView?.deselectItem(at: indexPath, animated: false)
+        }
+    }
 
 
 
