@@ -7,15 +7,46 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var navigationBarAppearance = UINavigationBar.appearance()
+    var tabBarAppearance  = UITabBar.appearance()
+    
+    //the stack won’t be set up until the first time you access the property.
+    lazy var stack = CoreDataStack(modelName: "Model")
+    
+    func getContext() -> NSManagedObjectContext {
+        return stack.managedContext
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+      /*  guard let navController =
+            window?.rootViewController as? UINavigationController,
+            let viewController =
+            navController.topViewController as? MapViewController else {
+                return true
+        }*/
+        navigationBarAppearance.tintColor = UIColor(red:0.33, green:0.36, blue:0.43, alpha:1.0)
+        navigationBarAppearance.barTintColor = UIColor(red:0.75, green:0.89, blue:0.86, alpha:1.0)
+       
+        
+        tabBarAppearance.tintColor = UIColor.black
+        tabBarAppearance.barTintColor = UIColor(red:0.54, green:0.69, blue:0.68, alpha:1.0)
+        
+        guard let tabController = window?.rootViewController as? UITabBarController,
+            let viewController = tabController.viewControllers![0] as? IngredientsTableViewController else {
+                return true
+        }
+        
+        viewController.managedContext = stack.managedContext
+        
+        CoreDataStack.autoSave(5, stack.managedContext)
         return true
     }
 

@@ -38,7 +38,6 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
     //downloading recipes
     func loadRecipes(){
         
-        //FoodAPIRequest.sharedInstance.findRecipes { (results, error) in
         FoodAPIRequest.sharedInstance.findRecipes(chosenIngredients) { (results, error) in
         
             if error ==  nil{
@@ -107,26 +106,7 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
     
         return cell!
     }
-    
-   /* override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let recipe = recipesArray[indexPath.row]
-        recipeId = recipe.id
-        
-       // print(recipeId)
-        
-        
-        //performSegue(withIdentifier: "showDetail", sender: recipeId!)
-        
-    }*/
 
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail"{
-            let navigationController = segue.destination as! UINavigationController
-            let controller = navigationController.topViewController as! RecipeDetailsViewController
-            controller.recipeId = (sender as? Int)!
-        }
-    }*/
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showDetail") {
@@ -137,7 +117,10 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
             let indexPath = indexPaths?[0] as? IndexPath ?? IndexPath()
             let recipe = recipesArray[indexPath.row]
             let chosenRecipeId = recipe.id
+            let chosenImage = recipe.imageURL
             controller.recipeId = chosenRecipeId!
+            controller.imageUrl = chosenImage
+            controller.recipe = recipe
             collectionView?.deselectItem(at: indexPath, animated: false)
         }
     }

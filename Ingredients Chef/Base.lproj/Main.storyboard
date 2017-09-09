@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gXB-7S-rmy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sHv-wK-tkp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,23 +16,17 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rns-N4-oS9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cHa-K3-XGb">
-                            <rect key="frame" x="0.0" y="72" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Find Recipes"/>
-                            <connections>
-                                <segue destination="U72-Pp-qpO" kind="show" identifier="showRecipes" id="mmf-Mc-mRF"/>
-                            </connections>
-                        </button>
+                        <color key="backgroundColor" red="0.99215686270000003" green="0.94892067499999999" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="IngredientCell" id="Fht-kN-hS3">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationLevel="6" indentationWidth="10" reuseIdentifier="IngredientCell" id="Fht-kN-hS3">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fht-kN-hS3" id="8hQ-wz-U5t">
-                                    <rect key="frame" x="0.0" y="0.0" width="336" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="336" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.99215686270000003" green="0.94892067499999999" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.52657148600000003" green="0.23297995090000001" blue="0.64036188469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -47,6 +41,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="U72-Pp-qpO" kind="show" identifier="showRecipes" id="91H-R2-0cF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sM2-O6-fxD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -67,7 +64,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yMp-X3-VVO" id="IEO-aH-3n8">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Ingredient" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nJ6-Ip-IPP">
@@ -138,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="-130.40000000000001" y="146.17691154422789"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Favorites Table View Controller-->
         <scene sceneID="l5S-b5-Au9">
             <objects>
-                <tableViewController id="rL7-mk-Y2I" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FavoritesVC" id="rL7-mk-Y2I" customClass="FavoritesTableViewController" customModule="Ingredients_Chef" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZeT-k8-8Ce">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,7 +148,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="COS-LQ-0zL" id="UWs-oj-nLj">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -305,13 +302,25 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ImQ-WO-1pA">
                                 <rect key="frame" x="0.0" y="309" width="375" height="358"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="50" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4aZ-1r-c56">
-                                    <rect key="frame" x="0.0" y="72" width="375" height="286"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="Wwz-h8-17A">
+                                    <rect key="frame" x="0.0" y="72" width="375" height="287"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="50" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpy-We-Go8">
+                                            <rect key="frame" x="10" y="8" width="355" height="271"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="rpy-We-Go8" secondAttribute="trailing" constant="10" id="DGe-me-1hh"/>
+                                        <constraint firstItem="rpy-We-Go8" firstAttribute="top" secondItem="Wwz-h8-17A" secondAttribute="top" constant="8" id="S6w-UQ-Sh9"/>
+                                        <constraint firstAttribute="bottom" secondItem="rpy-We-Go8" secondAttribute="bottom" constant="8" id="p5J-Wm-YOo"/>
+                                        <constraint firstItem="rpy-We-Go8" firstAttribute="leading" secondItem="Wwz-h8-17A" secondAttribute="leading" constant="10" id="xVz-SJ-XR3"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RecipeCell" id="MJe-58-5Gb">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -355,6 +364,9 @@
                                             <constraint firstAttribute="width" constant="40" id="Qok-iD-uh5"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="121727"/>
+                                        <connections>
+                                            <action selector="addToFavorites:" destination="1yk-Bi-OBn" eventType="touchUpInside" id="qaK-aa-T9N"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -374,9 +386,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Recipe Name" id="pMJ-Wm-rhK"/>
                     <connections>
-                        <outlet property="instructions" destination="4aZ-1r-c56" id="6po-cl-vcj"/>
+                        <outlet property="favButton" destination="fX2-DM-u3V" id="Vcy-aP-bYF"/>
+                        <outlet property="instructions" destination="rpy-We-Go8" id="rBe-Ra-d5M"/>
                         <outlet property="recipeImage" destination="eIf-Zb-DOW" id="4rh-NA-VPi"/>
                         <outlet property="tableView" destination="ImQ-WO-1pA" id="TvW-hk-ahm"/>
+                        <outlet property="timeLabel" destination="bir-Qz-mO6" id="z02-K9-gen"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t1R-8h-V8f" userLabel="First Responder" sceneMemberID="firstResponder"/>

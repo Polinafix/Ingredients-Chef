@@ -41,9 +41,12 @@ class FoodAPIRequest: NSObject{
             return
         }
         //Did we get a successful 2xx response?
-        guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+       /* guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
             displayError("Your request returned a status code other than 2xx!")
             return
+        }*/
+        if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+            print(statusCode)
         }
         
         //was there any data returned?
@@ -167,8 +170,12 @@ class FoodAPIRequest: NSObject{
                 print("Cannot find key instructions in \(parsedResult)")
                 return
             }
+            guard let urlString = parsedResult["image"] as? String else {
+                print("Cannot find key image in \(parsedResult)")
+                return
+            }
             
-            let detailedRecipe = DetailedRecipe(ingredients: listOfIngr, readyInMinutes: readyIn, instructions: instructions)
+            let detailedRecipe = DetailedRecipe(ingredients: listOfIngr, readyInMinutes: readyIn, instructions: instructions,imageUrl:urlString)
             
             
             completionHandler(detailedRecipe, nil)
