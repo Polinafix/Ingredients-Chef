@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         
         tabBarAppearance.tintColor = UIColor.black
-        tabBarAppearance.barTintColor = UIColor(red:0.54, green:0.69, blue:0.68, alpha:1.0)
+        tabBarAppearance.barTintColor = UIColor(red:0.54, green:0.69, blue:0.68, alpha:0.3)
         
         guard let tabController = window?.rootViewController as? UITabBarController,
             let viewController = tabController.viewControllers![0] as? IngredientsTableViewController else {

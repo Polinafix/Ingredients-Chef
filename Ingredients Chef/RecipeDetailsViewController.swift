@@ -7,58 +7,72 @@
 //
 
 import UIKit
+import CoreData
 
-//protocol
-protocol RecipeDetailsDelegate: class {
-    //func addIngredientTVCDidCancel(_ controller: AddIngredientTableViewController)
-    func addToFavorites(_ controller: RecipeDetailsViewController,
-                          didFinishAdding recipe: DetailedRecipe)
-}
+
 
 class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var array:[String] = ["butter","milk","sugar","salt","chocolate","cinnamon"]
+    var array:[String] = []
     var recipeId:Int = 479101
     var imageUrl:String?
-    var recipe:Recipe?
-    weak var delegate: RecipeDetailsDelegate?
-    var detailedRecipe:DetailedRecipe?
+    var minutes:Int?
+    var recipe:MyRecipe?
+    
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var managedContext: NSManagedObjectContext!
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var instructions: UILabel!
+   // @IBOutlet weak var instructions: UILabel!
+    @IBOutlet weak var instructionsView: UITextView!
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var favButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //self.delegate = FavoritesTableViewController.self as? RecipeDetailsDelegate
-        //timeLabel.text =
-        //recipeImage.image = UIImage(named: "beef")
+        tableView.separatorColor = UIColor(red:0.33, green:0.36, blue:0.43, alpha:1.0)
+        //instructions.font = UIFont(name: "Palatino", size: 17)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 80
         
        loadImage()
        loadDetailedRecipe()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 80
+    }
 
     func loadDetailedRecipe(){
-        
-        
         FoodAPIRequest.sharedInstance.showDetailedRecipe(recipeId) { (result, error) in
             if error ==  nil{
                 performUIUpdatesOnMain {
-                    self.detailedRecipe = result
-                    print("This is an object:\(self.detailedRecipe!)")
-                    self.array = result.ingredients!
-                    print("\(self.array.count) ingredients from ... fetched")
-                    self.instructions.text = result.instructions
+                    self.recipe?.details = result
+                    self.array = result.ingredients! as [String]
+                    self.instructionsView.text = result.instructions
+                    self.minutes = result.readyInMinutes!
+                    self.timeLabel.text = "\(self.minutes!) min"
                     self.tableView.reloadData()
                 }
             }else{
-                print("couldn't get photos from food API")
+                
+                self.showAlert(title: "Error", message: "\(error?.localizedDescription)")
             }
         }
         
+    }
+    
+    func showAlert(title:String, message:String?) {
+        
+        if let message = message {
+            let alert = UIAlertController(title: title, message: "\(message)", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     func loadImage(){
@@ -66,7 +80,7 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
             if let data = imageData{
                 performUIUpdatesOnMain {
                     self.recipe?.data = data
-                    self.recipeImage.image = UIImage(data: self.recipe!.data!)
+                    self.recipeImage.image = UIImage(data: self.recipe!.data! as Data)
                     
                 }
             }else{
@@ -75,33 +89,34 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    @IBAction func addToFavorites(_ sender: UIButton) {
-        
-       // var storyboard = UIStoryboard(name: "IDEInterface", bundle: nil)
-        let controller = storyboard?.instantiateViewController(withIdentifier: "FavoritesVC") as! FavoritesTableViewController
-        
-        controller.favString = "love"
-        
+    @IBAction func done(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
-        
-        
-        
-      //  if let printed = detailedRecipe?.readyInMinutes {
-      //      print("Here you go:\(printed)")
-      //  }
-        
-       // let item = DetailedRecipe(ingredients: (detailedRecipe?.ingredients!)!, readyInMinutes: (detailedRecipe?.readyInMinutes!)!, instructions: (detailedRecipe?.instructions!)!, imageUrl: (detailedRecipe?.imageUrl!)!)
-        //delegate?.addToFavorites(self, didFinishAdding: item)
+    }
     
+    @IBAction func addToFavorites(_ sender: UIButton) {
+        managedContext = appDelegate.getContext()
+        let details = Details(array, minutes!, instructionsView.text!, context: managedContext)
+        _ = Recipe(recipeId, recipe?.title, recipe?.data,details, context: managedContext)
+        CoreDataStack.saveContext(managedContext)
+        
+        favButton.isHidden = true
+        
+        //show the alert message
+        displayAlert()
+        
+      // dismiss(animated: true, completion: nil)
+        
         
     }
-    /*func recipeLike(){
-        if heart is pressed{
-            1)change to another picture
-            2)save the current recipe to Core Data
-            3)use delegate
-        }
-    }*/
+    
+    func displayAlert() {
+        
+        let alert = UIAlertController(title: "Success!", message: "This recipe has just been added to your favorites!", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return array.count
@@ -111,10 +126,18 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)
         
         let item = array[indexPath.row]
+        cell.textLabel?.font = UIFont(name: "Palatino", size: 17)
         cell.textLabel?.text = item
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
 
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView,
+                            willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
     }
 
 }

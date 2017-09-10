@@ -13,8 +13,10 @@ import UIKit
 class FoodAPIRequest: NSObject{
     
      static let sharedInstance = FoodAPIRequest()
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-    func findRecipes(_ ingredientsList:String, _ completionHandler: @escaping(_ result:[Recipe]?,_ error:NSError?) -> Void) {
+    func findRecipes(_ ingredientsList:String, _ completionHandler: @escaping(_ result:[MyRecipe]?,_ error:NSError?) -> Void) {
     
     /* 1. Set the parameters - the required once */
     
@@ -65,7 +67,7 @@ class FoodAPIRequest: NSObject{
             return
         }
         
-        var arrayOfRecipes = [Recipe]()
+        var arrayOfRecipes = [MyRecipe]()
         //var arrayOfTitles = [String]()
         
             for recipe in parsedResult {
@@ -84,8 +86,9 @@ class FoodAPIRequest: NSObject{
                 }
                 
                 
-                
-                let recipe = Recipe(id: recipeId, title: recipeName, imageURL: urlString)
+                //let context = self.appDelegate.getContext()
+                //let recipe = Recipe(recipeId, recipeName, urlString,nil, context: context)
+                let recipe = MyRecipe(id: recipeId, title: recipeName, imageURL: urlString, details: nil)
                 arrayOfRecipes.append(recipe)
                
             }
@@ -170,14 +173,14 @@ class FoodAPIRequest: NSObject{
                 print("Cannot find key instructions in \(parsedResult)")
                 return
             }
-            guard let urlString = parsedResult["image"] as? String else {
+            /*guard let urlString = parsedResult["image"] as? String else {
                 print("Cannot find key image in \(parsedResult)")
                 return
-            }
+            }*/
+            //let context = self.appDelegate.getContext()
+            //let detailedRecipe = Details(listOfIngr, readyIn, instructions, context: context)
             
-            let detailedRecipe = DetailedRecipe(ingredients: listOfIngr, readyInMinutes: readyIn, instructions: instructions,imageUrl:urlString)
-            
-            
+            let detailedRecipe = DetailedRecipe(ingredients: listOfIngr, readyInMinutes: readyIn, instructions: instructions)
             completionHandler(detailedRecipe, nil)
             
 

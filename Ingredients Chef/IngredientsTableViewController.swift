@@ -29,32 +29,13 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.separatorColor = myPurple
-        
-    
-        
-        
-        
         //create a floating button
-        button = UIButton(frame:CGRect(origin: CGPoint(x:self.view.frame.width/1.5, y: self.view.frame.size.height - 110), size: CGSize(width: 120, height: 40)))
-        button.backgroundColor = myPurple
-        button.setTitle("Find Recipes", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Palatino-bold", size: 17)
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 3
-        button.layer.borderColor = UIColor.black.cgColor
-       // button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        self.navigationController?.view.addSubview(button)
+        createButton()
+        
         if ingredients.isEmpty {
             button.isHidden = true
-            starterMessage(message: "Please add your Ingredients to start searching for amazing recipes!", viewController: self, empty:true)
+            starterMessage(message: " Please add your Ingredients to start searching for amazing recipes! ", viewController: self, empty:true)
         }
-        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
-        
-        
-        
-       
         
         //fetch ingredients from Core Data
         fetchIngredients()
@@ -62,11 +43,21 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
       
     }
     
+    func createButton(){
+        
+        button = UIButton(frame:CGRect(origin: CGPoint(x:self.view.frame.width/1.5, y: self.view.frame.size.height - 160), size: CGSize(width: 80, height: 80)))
+        let image = UIImage(named: "arrow")
+        button.setImage(image, for: .normal)
+        self.navigationController?.view.addSubview(button)
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         if ingredients.isEmpty {
             button.isHidden = true
-            starterMessage(message: "Please add your Ingredients to start searching for amazing recipes!", viewController: self,empty:true)
+            starterMessage(message: " Please add your Ingredients to start searching for amazing recipes! ", viewController: self,empty:true)
         }else{
             button.isHidden = false
             starterMessage(message: "", viewController: self,empty:false)
@@ -76,7 +67,7 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
     func starterMessage(message:String, viewController:UITableViewController,empty:Bool) {
         let messageLabel = UILabel(frame: CGRect(x:0,y:0,width:viewController.view.bounds.size.width,height: viewController.view.bounds.size.height))
         messageLabel.text = message
-        messageLabel.textColor = UIColor.black
+        messageLabel.textColor = UIColor.gray
         messageLabel.numberOfLines = 0;
         messageLabel.textAlignment = .center;
         messageLabel.font = UIFont(name: "TrebuchetMS", size: 20)
@@ -141,6 +132,19 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
 
     
 
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView()
+        header.backgroundColor = UIColor.clear
+        return header
+    }
+    
+
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return ingredients.count
@@ -154,6 +158,10 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
         let item = ingredients[indexPath.row]
         cell.textLabel?.text = item.text
         cell.textLabel?.font = UIFont(name: "Palatino-bold", size: 20)
+        
+        cell.layer.cornerRadius = 20 //set corner radius here
+        cell.layer.borderColor = UIColor.black.cgColor  // set cell border color here
+        cell.layer.borderWidth = 0.5 // set border width here
         
         
         configureCheckmark(for: cell, with: item)
@@ -201,7 +209,7 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
         CoreDataStack.saveContext(managedContext)
         if ingredients.isEmpty {
             button.isHidden = true
-            starterMessage(message: "Please add your Ingredients to start searching for amazing recipes!", viewController: self,empty:true)
+            starterMessage(message: " Please add your Ingredients to start searching for amazing recipes! ", viewController: self,empty:true)
         }else{
             button.isHidden = false
         }

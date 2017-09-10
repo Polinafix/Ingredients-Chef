@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 class FoundRecipesCollectionViewController: UICollectionViewController {
 
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
-    var recipesArray:[Recipe] = [Recipe]()
+    var recipesArray:[MyRecipe] = [MyRecipe]()
     var chosenIngredients:String = ""
     var recipeId:Int?
     
@@ -22,16 +22,11 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
         
         loadRecipes()
         
-        //collectionView!.contentInset = UIEdgeInsets(top: 15, left: 40, bottom: 15, right: 40)
-        
-        
-
         let space:CGFloat = 3.0
         let dimension = (view.frame.size.width - (2 * space)) / 2.0
         
         flowLayout.minimumInteritemSpacing = space
         flowLayout.minimumLineSpacing = space
-        
         flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
 
@@ -45,18 +40,30 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
                     if (results?.count)! > 0{
                         
                         self.recipesArray = results!
-                        print("\(self.recipesArray.count) photos from ... fetched")
+                        print("\(self.recipesArray.count) recipes fetched")
                         self.collectionView?.reloadData()
                         
                     }else{
-                       print("no photos for this location")
+                        self.showAlert(title: "No Recipes Found", message: "No recipes found for these ingredients")
+                       print("no recipes for these ingredients")
                     }
                 }
             }else{
-                print("couldn't get photos from flickr")
+                self.showAlert(title: "Error", message: "\(error?.localizedDescription)")
+                print("couldn't get recipes")
+                
             }
         }
   
+    }
+    
+    func showAlert(title:String, message:String?) {
+        
+        if let message = message {
+            let alert = UIAlertController(title: title, message: "\(message)", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
     }
 
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -65,7 +72,7 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
    
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
+        
         return recipesArray.count
     }
 
@@ -74,7 +81,7 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
         
         let recipe = recipesArray[indexPath.row]
         cell?.imageView.image = UIImage(named: "default")
-        cell?.recipeName.text = "Loading"
+        //cell?.recipeName.text = "Loading"
         cell?.activityIndicator.startAnimating()
         
         if recipe.data != nil{
@@ -86,11 +93,10 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
         }else{
             FoodAPIRequest.sharedInstance.fromUrlToData(recipe.imageURL, { (returnedData, error) in
             
-                
                 if let recipeData = returnedData{
                     performUIUpdatesOnMain {
                         recipe.data = recipeData
-                        cell?.imageView.image = UIImage(data: recipe.data!)
+                        cell?.imageView.image = UIImage(data: recipe.data! as Data)
                         cell?.recipeName.text = recipe.title
                         cell?.activityIndicator.stopAnimating()
                         cell?.activityIndicator.hidesWhenStopped = true
@@ -103,21 +109,22 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
         }
     
         // Configure the cell
-    
         return cell!
     }
 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showDetail") {
+            
             let indexPaths: [Any]? = collectionView?.indexPathsForSelectedItems
             let navigationController = segue.destination as! UINavigationController
             let controller = navigationController.topViewController as! RecipeDetailsViewController
-            //let destViewController: RecipeViewController? = segue.destination
+            
             let indexPath = indexPaths?[0] as? IndexPath ?? IndexPath()
             let recipe = recipesArray[indexPath.row]
             let chosenRecipeId = recipe.id
             let chosenImage = recipe.imageURL
+            
             controller.recipeId = chosenRecipeId!
             controller.imageUrl = chosenImage
             controller.recipe = recipe

@@ -7,125 +7,102 @@
 //
 
 import UIKit
+import CoreData
 
 
 
 class FavoritesTableViewController: UITableViewController {
     
-    var favorites:[String] = ["cat","dog"]
+    var favorites:[Recipe] = []
     var favString:String = ""
-    var favs:[DetailedRecipe]?
+    var favs:[Details]?
     var anotherView:RecipeDetailsViewController?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var managedContext: NSManagedObjectContext!
     
     override func viewWillAppear(_ animated: Bool) {
-        //anotherView?.delegate = self
-        favorites.append(favString)
-        print(favString)
-        
+        super.viewWillAppear(animated)
+        favorites = []
+        fetchRecipes()
+        print(favorites.count)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-      //  favorites?.append("cart")
-      //  favorites?.append("dog")
-        
-        
-        
-        
-        
-        
+        tableView.rowHeight = 90
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-   /* func addToFavorites(_ controller: RecipeDetailsViewController, didFinishAdding recipe: DetailedRecipe) {
-        let newRowIndex = favorites?.count
-        favorites?.append("hhhhgh")
-        let indexPath = IndexPath(row: newRowIndex!, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
-        dismiss(animated: true, completion: nil)
-    }*/
-
+    func fetchRecipes(){
+        let recipeFetch:NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        managedContext = appDelegate.getContext()
+        
+        do{
+            let results = try managedContext.fetch(recipeFetch)
+            
+            if results.count > 0{
+                for result in results{
+                    favorites.append(result)
+        
+                }
+                tableView.reloadData()
+            }else{
+                print("no favorite recipes yet")
+            }
+            
+        }catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
+    }
+    
     // MARK: - Table view data source
 
-    
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        
         return (favorites.count)
-       // return 5
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavCell", for: indexPath) as? FavoriteCell
         
         let item = favorites[indexPath.row]
-        cell.textLabel?.text = item
+        cell?.recipeName.text = item.title
+        let cookingTime = item.details?.readyInMinutes
+        cell?.timeToCook.text = "\(cookingTime!) min"
+        cell?.recipeImage.image = UIImage(data: item.data as! Data)
+        cell?.recipeName.numberOfLines = 0
+        cell?.recipeName.lineBreakMode = NSLineBreakMode.byWordWrapping
+ 
         
-        /*let item = favs?[indexPath.row]
-        cell.textLabel?.text = item?.name
-        let minutes = String(describing: item?.readyInMinutes)
-        cell.detailTextLabel?.text = minutes + "min"*/
-        //cell.imageView?.image\
-        //cell.textLabel?.text = "gggg"
+        return cell!
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-
-        
-
-        return cell
+        let chosenRecipe = favorites[indexPath.row]
+        performSegue(withIdentifier: "showFavDetail", sender: chosenRecipe)
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        let recipeToDelete = favorites[indexPath.row]
+        favorites.remove(at: indexPath.row)
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+        managedContext.delete(recipeToDelete)
+        CoreDataStack.saveContext(managedContext)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "showFavDetail") {
+            
+            let navigationController = segue.destination as! UINavigationController
+            let controller = navigationController.topViewController as! FavoriteDetailsViewController
+            controller.recipe = sender as? Recipe
+        }
     }
  
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

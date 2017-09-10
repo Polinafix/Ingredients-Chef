@@ -22,9 +22,16 @@ class AddIngredientTableViewController: UITableViewController, UITextFieldDelega
     @IBOutlet weak var doneButton: UIBarButtonItem!
     weak var delegate: AddIngredientTVCDelegate?
     var managedContext: NSManagedObjectContext!
-
+    @IBOutlet weak var staticCell: UITableViewCell!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        staticCell.layer.borderColor = UIColor.black.cgColor  // set cell border color here
+        staticCell.layer.borderWidth = 1.5 // set border width here
+        staticCell.layer.cornerRadius = 20
+        
 
     }
     
@@ -42,15 +49,9 @@ class AddIngredientTableViewController: UITableViewController, UITextFieldDelega
     
     @IBAction func doneAdding(_ sender: UIBarButtonItem) {
         
-        let ingr = Ingredients(textField.text!, false, context: managedContext)
+        let ingr = Ingredients(textField.text!, true, context: managedContext)
         delegate?.addIngredientTVC(self, didFinishAdding: ingr)
-        
-        /*let item = Ingredient()
-        item.text = textField.text!
-        item.checked = false
-        delegate?.addIngredientTVC(self, didFinishAdding: item)*/
-        
-       // dismiss(animated: true, completion: nil)
+
     }
     //disable the done bar button if the text field is empty
     func textField(_ textField: UITextField,
@@ -70,6 +71,8 @@ class AddIngredientTableViewController: UITableViewController, UITextFieldDelega
                             willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
     }
+    
+   
 
 
 }
