@@ -157,11 +157,12 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
         
         let item = ingredients[indexPath.row]
         cell.textLabel?.text = item.text
-        cell.textLabel?.font = UIFont(name: "Palatino-bold", size: 20)
+        cell.textLabel?.font = UIFont(name: "Palatino", size: 19)
+        //cell.textLabel?.textAlignment = .center
         
-        cell.layer.cornerRadius = 20 //set corner radius here
+        cell.layer.cornerRadius = 10//set corner radius here
         cell.layer.borderColor = UIColor.black.cgColor  // set cell border color here
-        cell.layer.borderWidth = 0.5 // set border width here
+        cell.layer.borderWidth = 0.8 // set border width here
         
         
         configureCheckmark(for: cell, with: item)

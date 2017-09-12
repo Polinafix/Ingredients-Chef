@@ -13,18 +13,23 @@ import CoreData
 
 class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var array:[String] = []
+    var array:[String]? = []
     var recipeId:Int = 479101
     var imageUrl:String?
+    
     var minutes:Int?
     var recipe:MyRecipe?
+    var savedRecipe:Recipe?
     
+    var isFavoriteDetail:Bool = false
+    
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var managedContext: NSManagedObjectContext!
 
     @IBOutlet weak var tableView: UITableView!
-   // @IBOutlet weak var instructions: UILabel!
     @IBOutlet weak var instructionsView: UITextView!
     @IBOutlet weak var recipeImage: UIImageView!
     @IBOutlet weak var timeLabel: UILabel!
@@ -37,8 +42,23 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
         
-       loadImage()
-       loadDetailedRecipe()
+        if isFavoriteDetail {
+            favButton.isHidden = true
+            activityIndicator.isHidden = true
+            array = (savedRecipe?.details?.ingredients)! as [String]
+            self.instructionsView.text = savedRecipe?.details?.instructions
+            self.minutes = Int((savedRecipe?.details?.readyInMinutes)!)
+            self.timeLabel.text = "\(self.minutes!) mins"
+            self.recipeImage.image = UIImage(data: (savedRecipe?.data)! as Data)
+            isFavoriteDetail = false
+        } else {
+             activityIndicator.startAnimating()
+        
+            loadImage()
+            loadDetailedRecipe()
+        }
+        
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +71,8 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         FoodAPIRequest.sharedInstance.showDetailedRecipe(recipeId) { (result, error) in
             if error ==  nil{
                 performUIUpdatesOnMain {
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.hidesWhenStopped = true
                     self.recipe?.details = result
                     self.array = result.ingredients! as [String]
                     self.instructionsView.text = result.instructions
@@ -85,6 +107,7 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             }else{
                 print("Data error: \(error)")
+                self.showAlert(title: "Error", message: error)
             }
         }
     }
@@ -94,24 +117,30 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func addToFavorites(_ sender: UIButton) {
+        
         managedContext = appDelegate.getContext()
-        let details = Details(array, minutes!, instructionsView.text!, context: managedContext)
-        _ = Recipe(recipeId, recipe?.title, recipe?.data,details, context: managedContext)
-        CoreDataStack.saveContext(managedContext)
+        
+        if let currentArray = array,let currentMinutes = minutes, let instructions = instructionsView.text {
+            
+            let details = Details(currentArray, currentMinutes, instructions, context: managedContext)
+            
+            _ = Recipe(recipeId, recipe?.title, recipe?.data,details, context: managedContext)
+            CoreDataStack.saveContext(managedContext)
+        }else {
+           displayAlert(title: "Problem", message: "Unable to save the recipr to favorites")
+        }
         
         favButton.isHidden = true
         
         //show the alert message
-        displayAlert()
+        displayAlert(title: "Success!", message: "This recipe has just been added to your favorites!")
         
-      // dismiss(animated: true, completion: nil)
-        
-        
+
     }
     
-    func displayAlert() {
+    func displayAlert(title:String, message:String?) {
         
-        let alert = UIAlertController(title: "Success!", message: "This recipe has just been added to your favorites!", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -119,13 +148,13 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
+        return array!.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath)
         
-        let item = array[indexPath.row]
+        let item = array?[indexPath.row]
         cell.textLabel?.font = UIFont(name: "Palatino", size: 17)
         cell.textLabel?.text = item
         cell.textLabel?.numberOfLines = 0

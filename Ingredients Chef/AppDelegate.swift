@@ -34,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }*/
         navigationBarAppearance.tintColor = UIColor(red:0.33, green:0.36, blue:0.43, alpha:1.0)
         navigationBarAppearance.barTintColor = UIColor(red:0.75, green:0.89, blue:0.86, alpha:1.0)
+        navigationBarAppearance.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Palatino-bold", size: 20)!]
        
         
         tabBarAppearance.tintColor = UIColor.black

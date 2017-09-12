@@ -98,8 +98,9 @@ class FavoritesTableViewController: UITableViewController {
         if (segue.identifier == "showFavDetail") {
             
             let navigationController = segue.destination as! UINavigationController
-            let controller = navigationController.topViewController as! FavoriteDetailsViewController
-            controller.recipe = sender as? Recipe
+            let controller = navigationController.topViewController as! RecipeDetailsViewController
+            controller.savedRecipe = sender as? Recipe
+            controller.isFavoriteDetail = true
         }
     }
  

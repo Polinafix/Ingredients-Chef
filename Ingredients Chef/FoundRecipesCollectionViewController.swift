@@ -49,7 +49,7 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
                     }
                 }
             }else{
-                self.showAlert(title: "Error", message: "\(error?.localizedDescription)")
+                self.showAlert(title: "Error", message: "\(error!.localizedDescription)")
                 print("couldn't get recipes")
                 
             }
