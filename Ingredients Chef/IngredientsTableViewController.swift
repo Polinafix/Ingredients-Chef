@@ -29,8 +29,10 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(IngredientsTableViewController.orientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        
         //create a floating button
-        createButton()
+        createButton(160)
         
         if ingredients.isEmpty {
             button.isHidden = true
@@ -43,9 +45,18 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
       
     }
     
-    func createButton(){
+    func orientationChanged()
+    {
+        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation))
+        {
+            createButton(160)
+        }
+    }
+    
+    
+    func createButton(_ size:CGFloat){
         
-        button = UIButton(frame:CGRect(origin: CGPoint(x:self.view.frame.width/1.5, y: self.view.frame.size.height - 160), size: CGSize(width: 80, height: 80)))
+        button = UIButton(frame:CGRect(origin: CGPoint(x:self.view.frame.width/1.5, y: self.view.frame.size.height - size), size: CGSize(width: 80, height: 80)))
         let image = UIImage(named: "arrow")
         button.setImage(image, for: .normal)
         self.navigationController?.view.addSubview(button)
@@ -55,6 +66,7 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(IngredientsTableViewController.orientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         if ingredients.isEmpty {
             button.isHidden = true
             starterMessage(message: " Please add your Ingredients to start searching for amazing recipes! ", viewController: self,empty:true)
@@ -114,7 +126,6 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
             if results.count > 0{
                 for result in results{
                     ingredients.append(result)
-                    //mapView.addAnnotation(result.annotation)
                     
                 }
                 tableView.reloadData()
@@ -158,7 +169,6 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
         let item = ingredients[indexPath.row]
         cell.textLabel?.text = item.text
         cell.textLabel?.font = UIFont(name: "Palatino", size: 19)
-        //cell.textLabel?.textAlignment = .center
         
         cell.layer.cornerRadius = 10//set corner radius here
         cell.layer.borderColor = UIColor.black.cgColor  // set cell border color here
@@ -241,11 +251,9 @@ class IngredientsTableViewController: UITableViewController, AddIngredientTVCDel
             //convert them into a string
             ingredientList = checkedIngredients.joined(separator: ",")
             controller.chosenIngredients = ingredientList
-            
-            
+                        
         }
     }
-
 
 }
 

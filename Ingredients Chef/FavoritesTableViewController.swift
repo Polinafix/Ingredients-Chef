@@ -30,9 +30,9 @@ class FavoritesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 90
-
     }
-
+    
+    
     func fetchRecipes(){
         let recipeFetch:NSFetchRequest<Recipe> = Recipe.fetchRequest()
         managedContext = appDelegate.getContext()
@@ -59,7 +59,7 @@ class FavoritesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return (favorites.count)
+        return favorites.count
     }
 
     

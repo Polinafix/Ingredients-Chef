@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sHv-wK-tkp">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,15 +15,15 @@
             <objects>
                 <tableViewController id="50x-EO-Hac" customClass="IngredientsTableViewController" customModule="Ingredients_Chef" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Rns-N4-oS9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.94892067499999999" blue="0.95197418810000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationLevel="4" indentationWidth="8" reuseIdentifier="IngredientCell" id="Fht-kN-hS3">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="667" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fht-kN-hS3" id="8hQ-wz-U5t">
-                                    <rect key="frame" x="0.0" y="0.0" width="336" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="628" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <color key="tintColor" red="0.52657148600000003" green="0.23297995090000001" blue="0.64036188469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -54,21 +54,21 @@
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="g5z-kB-u56" customClass="AddIngredientTableViewController" customModule="Ingredients_Chef" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="BcO-Yt-Ou9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.94892067499999999" blue="0.95197418810000001" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="IFX-KR-jpf">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="yMp-X3-VVO">
-                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="35" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yMp-X3-VVO" id="IEO-aH-3n8">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your Ingredient" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nJ6-Ip-IPP">
-                                                    <rect key="frame" x="8" y="6" width="359" height="30"/>
+                                                    <rect key="frame" x="8" y="6" width="651" height="30"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -141,15 +141,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="FavoritesVC" id="rL7-mk-Y2I" customClass="FavoritesTableViewController" customModule="Ingredients_Chef" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="30" sectionFooterHeight="27" id="ZeT-k8-8Ce">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.99215686270000003" green="0.94892067499999999" blue="0.95197418810000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavCell" rowHeight="90" id="COS-LQ-0zL" customClass="FavoriteCell" customModule="Ingredients_Chef" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="30" width="375" height="90"/>
+                                <rect key="frame" x="0.0" y="30" width="667" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="COS-LQ-0zL" id="UWs-oj-nLj">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="667" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zFH-nJ-tWq">
@@ -159,7 +159,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ix1-qI-Ij0">
-                                            <rect key="frame" x="122" y="10" width="253" height="31"/>
+                                            <rect key="frame" x="122" y="10" width="545" height="31"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="31" id="Ucw-46-dHw"/>
                                             </constraints>
@@ -170,7 +170,7 @@
                                             <size key="shadowOffset" width="1" height="-1"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymp-lk-xhx">
-                                            <rect key="frame" x="122" y="49" width="253" height="21"/>
+                                            <rect key="frame" x="122" y="49" width="545" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="tPl-5v-4A3"/>
                                             </constraints>
@@ -254,7 +254,7 @@
             <objects>
                 <collectionViewController id="jMZ-Yt-imr" customClass="FoundRecipesCollectionViewController" customModule="Ingredients_Chef" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="kCx-Nf-PtF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jLZ-gn-1NZ">
@@ -339,38 +339,43 @@
                         <viewControllerLayoutGuide type="bottom" id="20T-q7-icj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="f9p-2B-SEE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="eIf-Zb-DOW">
-                                <rect key="frame" x="0.0" y="126" width="375" height="181"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="eIf-Zb-DOW">
+                                <rect key="frame" x="0.0" y="126" width="667" height="181"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="181" id="iGX-9X-3gN"/>
                                 </constraints>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ImQ-WO-1pA">
-                                <rect key="frame" x="0.0" y="309" width="375" height="358"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="751" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ImQ-WO-1pA">
+                                <rect key="frame" x="0.0" y="309" width="667" height="66"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="Wwz-h8-17A">
-                                    <rect key="frame" x="0.0" y="72" width="375" height="287"/>
+                                    <rect key="frame" x="0.0" y="72" width="667" height="287"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xU7-Bi-zH9">
-                                            <rect key="frame" x="8" y="0.0" width="359" height="279"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xU7-Bi-zH9">
+                                            <rect key="frame" x="8" y="0.0" width="651" height="279"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="xU7-Bi-zH9" firstAttribute="top" secondItem="Wwz-h8-17A" secondAttribute="top" id="0oi-Oj-5at"/>
+                                        <constraint firstAttribute="trailing" secondItem="xU7-Bi-zH9" secondAttribute="trailing" constant="8" id="222-tW-aHb"/>
+                                        <constraint firstItem="xU7-Bi-zH9" firstAttribute="leading" secondItem="Wwz-h8-17A" secondAttribute="leading" constant="8" id="3r2-D0-Dmu"/>
+                                        <constraint firstAttribute="bottom" secondItem="xU7-Bi-zH9" secondAttribute="bottom" constant="8" id="Zhm-H4-AoE"/>
+                                    </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RecipeCell" id="MJe-58-5Gb">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="667" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MJe-58-5Gb" id="aXA-6X-Dx8">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="667" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -381,7 +386,7 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="erf-vu-Lfd">
-                                <rect key="frame" x="96.5" y="72" width="182.5" height="40"/>
+                                <rect key="frame" x="242.5" y="72" width="182.5" height="40"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="jtG-M4-nFD">
                                         <rect key="frame" x="0.0" y="0.0" width="102.5" height="40"/>
@@ -415,7 +420,7 @@
                                 </subviews>
                             </stackView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FWN-F7-W1g">
-                                <rect key="frame" x="167" y="313.5" width="40" height="40"/>
+                                <rect key="frame" x="313.5" y="167.5" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="POV-8a-L0g"/>
                                     <constraint firstAttribute="height" constant="40" id="dDi-O0-fM7"/>
@@ -447,6 +452,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="FWN-F7-W1g" id="kua-z7-aPB"/>
                         <outlet property="favButton" destination="fX2-DM-u3V" id="Vcy-aP-bYF"/>
+                        <outlet property="imageHeightConstraint" destination="iGX-9X-3gN" id="viV-7p-wgk"/>
                         <outlet property="instructionsView" destination="xU7-Bi-zH9" id="wny-Oy-Sx4"/>
                         <outlet property="recipeImage" destination="eIf-Zb-DOW" id="4rh-NA-VPi"/>
                         <outlet property="tableView" destination="ImQ-WO-1pA" id="TvW-hk-ahm"/>

@@ -22,6 +22,7 @@
 		E02DC3E11F646E1E009451EA /* MyRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DC3E01F646E1E009451EA /* MyRecipe.swift */; };
 		E02DC3E31F646ED7009451EA /* RecipeDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DC3E21F646ED7009451EA /* RecipeDetails.swift */; };
 		E02DC3E51F64D3ED009451EA /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DC3E41F64D3ED009451EA /* FavoriteCell.swift */; };
+		E02DC3EB1F69980A009451EA /* showAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DC3EA1F69980A009451EA /* showAlert.swift */; };
 		E0727D2C1F59C2BB00E4775E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0727D2B1F59C2BB00E4775E /* AppDelegate.swift */; };
 		E0727D311F59C2BB00E4775E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0727D2F1F59C2BB00E4775E /* Main.storyboard */; };
 		E0727D331F59C2BB00E4775E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0727D321F59C2BB00E4775E /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		E02DC3E01F646E1E009451EA /* MyRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRecipe.swift; sourceTree = "<group>"; };
 		E02DC3E21F646ED7009451EA /* RecipeDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeDetails.swift; sourceTree = "<group>"; };
 		E02DC3E41F64D3ED009451EA /* FavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
+		E02DC3EA1F69980A009451EA /* showAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = showAlert.swift; sourceTree = "<group>"; };
 		E0727D281F59C2BB00E4775E /* Ingredients Chef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ingredients Chef.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0727D2B1F59C2BB00E4775E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0727D301F59C2BB00E4775E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -99,6 +101,14 @@
 			name = Objects;
 			sourceTree = "<group>";
 		};
+		E02DC3E91F6997EC009451EA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E02DC3EA1F69980A009451EA /* showAlert.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		E0727D1F1F59C2BB00E4775E = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +128,7 @@
 		E0727D2A1F59C2BB00E4775E /* Ingredients Chef */ = {
 			isa = PBXGroup;
 			children = (
+				E02DC3E91F6997EC009451EA /* Extensions */,
 				E02DC3B01F61FCB9009451EA /* Model */,
 				E0727D4A1F5C4BFF00E4775E /* Network */,
 				E02DC3E81F658DFD009451EA /* Objects */,
@@ -227,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E02DC3D81F643945009451EA /* Recipe+CoreDataProperties.swift in Sources */,
+				E02DC3EB1F69980A009451EA /* showAlert.swift in Sources */,
 				E0727D3E1F59C96900E4775E /* IngredientsTableViewController.swift in Sources */,
 				E02DC3AF1F608F19009451EA /* FavoritesTableViewController.swift in Sources */,
 				E02DC3C71F61FEEB009451EA /* Model.xcdatamodeld in Sources */,

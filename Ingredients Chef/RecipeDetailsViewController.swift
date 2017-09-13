@@ -22,7 +22,7 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     var savedRecipe:Recipe?
     var listOfSavedRecipes:[Recipe]? = []
     
-    @IBOutlet weak var heartButton: UIButton!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
     var isFavoriteDetail:Bool = false
     
     
@@ -42,6 +42,14 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.separatorColor = UIColor(red:0.33, green:0.36, blue:0.43, alpha:1.0)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
+        
+        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+            print("landscape")
+            imageHeightConstraint.constant = 100
+            recipeImage.layoutIfNeeded()
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(RecipeDetailsViewController.orientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
         if isFavoriteDetail {
             favButton.isHidden = true
@@ -63,8 +71,22 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
       
     }
     
+    func orientationChanged()
+    {
+        if(UIDeviceOrientationIsLandscape(UIDevice.current.orientation))
+        {
+            imageHeightConstraint.constant = 100
+            recipeImage.layoutIfNeeded()
+            
+        }else{
+            imageHeightConstraint.constant = 180
+            recipeImage.layoutIfNeeded()
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(RecipeDetailsViewController.orientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
     }
@@ -161,20 +183,13 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
-    func displayAlert(title:String, message:String?) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
     
-    func displayErrorAlert(title:String, message:String?) {
+   func displayErrorAlert(title:String, message:String?) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.hideActivityIndicator()}))
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     func hideActivityIndicator(){

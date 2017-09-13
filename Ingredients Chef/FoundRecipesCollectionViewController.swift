@@ -81,7 +81,6 @@ class FoundRecipesCollectionViewController: UICollectionViewController {
         
         let recipe = recipesArray[indexPath.row]
         cell?.imageView.image = UIImage(named: "default")
-        //cell?.recipeName.text = "Loading"
         cell?.activityIndicator.startAnimating()
         
         if recipe.data != nil{
