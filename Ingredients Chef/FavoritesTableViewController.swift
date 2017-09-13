@@ -24,7 +24,7 @@ class FavoritesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         favorites = []
         fetchRecipes()
-        print(favorites.count)
+        
     }
 
     override func viewDidLoad() {

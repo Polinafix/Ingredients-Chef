@@ -40,7 +40,6 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorColor = UIColor(red:0.33, green:0.36, blue:0.43, alpha:1.0)
-        //instructions.font = UIFont(name: "Palatino", size: 17)
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80
         
@@ -59,7 +58,6 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
             loadImage()
             loadDetailedRecipe()
             fetchRecipes()
-            print(listOfSavedRecipes?.count ?? 27)
         }
         
       
@@ -86,21 +84,13 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
                     self.tableView.reloadData()
                 }
             }else{
+                self.displayErrorAlert(title: "Error", message:"\(error!.localizedDescription)")
                 
-                self.showAlert(title: "Error", message: "\(error?.localizedDescription)")
             }
         }
         
     }
     
-    func showAlert(title:String, message:String?) {
-        
-        if let message = message {
-            let alert = UIAlertController(title: title, message: "\(message)", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-            present(alert, animated: true, completion: nil)
-        }
-    }
     
     func loadImage(){
         FoodAPIRequest.sharedInstance.fromUrlToData(imageUrl!) { (imageData, error) in
@@ -112,7 +102,7 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             }else{
                 print("Data error: \(error)")
-                self.showAlert(title: "Error", message: error)
+                self.displayAlert(title: "Error", message: error)
             }
         }
     }
@@ -157,11 +147,9 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
                 for result in results {
                     if Int(result.id) == recipeId{
                         print("this recipe already exists")
-                        //favButton.imageView?.image = UIImage(named: "redheart")
                         favButton.setImage(UIImage(named:"redheart"), for: .normal)
                         favButton.isEnabled = false
                     }
-                    //listOfSavedRecipes?.append(result)
                 }
             }else{
                 print("no favorite recipes yet")
@@ -179,6 +167,19 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func displayErrorAlert(title:String, message:String?) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {(action: UIAlertAction!) in self.hideActivityIndicator()}))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func hideActivityIndicator(){
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.isHidden = true
     }
     
     
