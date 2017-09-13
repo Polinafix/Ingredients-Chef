@@ -41,9 +41,9 @@ class FavoritesTableViewController: UITableViewController {
             let results = try managedContext.fetch(recipeFetch)
             
             if results.count > 0{
-                for result in results{
+                for result in results {
                     favorites.append(result)
-        
+                   
                 }
                 tableView.reloadData()
             }else{

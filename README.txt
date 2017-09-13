@@ -23,12 +23,11 @@ Clicking on any of the cells will take the user to the next screen with the deta
 4)RecipeDetailsViewController
 
 The view contains information about the cooking time, ingredients and detailed instructions for cooking and a larger picture. 
-The is also a button in a shape of a heart, clicking on which will save the current recipe to the core data and will be shown in the Favorites.
+The is also a button in a shape of a heart, clicking on which will save the current recipe to the core data and will be shown in the Favorites. If the current recipe already exists in the favourites list, a red heart button will be shown and will be disabled.
 
-Once the user clicks on the heart button the alert message is shown, stating that the recipe has been saved to the favorites.
+Once the user clicks on the heart button the alert message is shown, stating that the recipe has been saved to the favorites. The image of the button changes to a red heart and becomes disabled.
 
 5)FavoritesTableViewController
-6)FavoriteDetailsViewController
 
 Favorites screen contains a table of recipes that were previously liked by the user. The information on this screen and the following (detailed screen) is persistent and can be deleted.
 

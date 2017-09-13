@@ -20,7 +20,9 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     var minutes:Int?
     var recipe:MyRecipe?
     var savedRecipe:Recipe?
+    var listOfSavedRecipes:[Recipe]? = []
     
+    @IBOutlet weak var heartButton: UIButton!
     var isFavoriteDetail:Bool = false
     
     
@@ -56,6 +58,8 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         
             loadImage()
             loadDetailedRecipe()
+            fetchRecipes()
+            print(listOfSavedRecipes?.count ?? 27)
         }
         
       
@@ -74,9 +78,10 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
                     self.activityIndicator.stopAnimating()
                     self.activityIndicator.hidesWhenStopped = true
                     self.recipe?.details = result
-                    self.array = result.ingredients! as [String]
-                    self.instructionsView.text = result.instructions
-                    self.minutes = result.readyInMinutes!
+                    self.array = (result?.ingredients)! as [String]
+                    print("number of ingr: \(self.array?.count ?? 0)")
+                    self.instructionsView.text = result?.instructions
+                    self.minutes = result?.readyInMinutes!
                     self.timeLabel.text = "\(self.minutes!) min"
                     self.tableView.reloadData()
                 }
@@ -124,18 +129,48 @@ class RecipeDetailsViewController: UIViewController, UITableViewDelegate, UITabl
             
             let details = Details(currentArray, currentMinutes, instructions, context: managedContext)
             
-            _ = Recipe(recipeId, recipe?.title, recipe?.data,details, context: managedContext)
+            _ = Recipe(recipeId, self.recipe?.title, self.recipe?.data,details, context: managedContext)
+            
+            favButton.setImage(UIImage(named:"redheart"), for: .normal)
+
+            favButton.isEnabled = false
             CoreDataStack.saveContext(managedContext)
+            
+            
         }else {
-           displayAlert(title: "Problem", message: "Unable to save the recipr to favorites")
+           displayAlert(title: "Problem", message: "Unable to save the recipe to favorites")
         }
-        
-        favButton.isHidden = true
-        
         //show the alert message
         displayAlert(title: "Success!", message: "This recipe has just been added to your favorites!")
-        
 
+    }
+    
+    func fetchRecipes(){
+        
+        let recipeFetch:NSFetchRequest<Recipe> = Recipe.fetchRequest()
+        managedContext = appDelegate.getContext()
+        
+        do{
+            let results = try managedContext.fetch(recipeFetch)
+            
+            if results.count > 0 {
+                for result in results {
+                    if Int(result.id) == recipeId{
+                        print("this recipe already exists")
+                        //favButton.imageView?.image = UIImage(named: "redheart")
+                        favButton.setImage(UIImage(named:"redheart"), for: .normal)
+                        favButton.isEnabled = false
+                    }
+                    //listOfSavedRecipes?.append(result)
+                }
+            }else{
+                print("no favorite recipes yet")
+            }
+            
+        }catch let error as NSError {
+            print("Fetch error: \(error) description: \(error.userInfo)")
+        }
+        
     }
     
     func displayAlert(title:String, message:String?) {

@@ -46,6 +46,7 @@ class FoodAPIRequest: NSObject{
         //Did we get a successful 2xx response?
         guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
             displayError("Your request returned a status code other than 2xx!")
+            
             return
         }
        // if let statusCode = (response as? HTTPURLResponse)?.statusCode {
@@ -106,7 +107,7 @@ class FoodAPIRequest: NSObject{
     task.resume()
 }
     
-    func showDetailedRecipe(_ id:Int, _ completionHandler: @escaping(_ result:DetailedRecipe,_ error:NSError?) -> Void){
+    func showDetailedRecipe(_ id:Int, _ completionHandler: @escaping(_ result:DetailedRecipe?,_ error:NSError?) -> Void){
         
         /* 1. Set the parameters - the required once */
         
@@ -131,11 +132,13 @@ class FoodAPIRequest: NSObject{
             //was there an error?
             guard (error == nil) else{
                 displayError("There was an error with your request: \(error)")
+                completionHandler(nil, error! as NSError?)
                 return
             }
             //Did we get a successful 2xx response?
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
                 displayError("Your request returned a status code other than 2xx!")
+                //completionHandler(nil, error! as NSError?)
                 return
             }
             
@@ -175,14 +178,12 @@ class FoodAPIRequest: NSObject{
                 print("Cannot find key instructions in \(parsedResult)")
                 return
             }
-            /*guard let urlString = parsedResult["image"] as? String else {
-                print("Cannot find key image in \(parsedResult)")
-                return
-            }*/
-            //let context = self.appDelegate.getContext()
-            //let detailedRecipe = Details(listOfIngr, readyIn, instructions, context: context)
+            
             
             let detailedRecipe = DetailedRecipe(ingredients: listOfIngr, readyInMinutes: readyIn, instructions: instructions)
+            
+            print(detailedRecipe.ingredients!)
+            
             completionHandler(detailedRecipe, nil)
             
 
